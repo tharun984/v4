@@ -6,9 +6,9 @@
         "config": {
             "basics": {
                 "description": "Metallic backup gateway wizard",
-				"location": {
-					"toolTip": "Resource group region"
-				}
+                "location": {
+                    "toolTip": "Resource group region"
+                }
             }
         },
         "basics": [
@@ -117,46 +117,46 @@
                         "osPlatform": "Windows",
                         "count": "1"
                     },
-                  {
-						"name": "virtualNetworksApi",
-						"type": "Microsoft.Solutions.ArmApiControl",
-						"request": {
-							"method": "GET",
-							"path": "[concat(subscription().id, '/providers/Microsoft.Network/virtualNetworks?api-version=2021-08-01')]"
-						}
-					},
-					{
-						"name": "virtualNetwork",
-						"type": "Microsoft.Common.DropDown",
-						"label": "virtualNetwork",
-						"filter": true,
-						"toolTip": "Virtual network",
-						"constraints": {
-						"allowedValues": "[map(filter(steps('VirtualMachineConfig').virtualNetworksApi.value, (item) => equals(item.location, basics('region'))), (item) => parse(concat('{\"label\":\"',item.name,'\",\"value\":{\"name\":\"',item.name,'\",\"id\":\"',item.id,'\",\"addressprefixes\":\"',item.properties.addressSpace.addressPrefixes, '\"}}')))]",
-						"required": true
-						},
-						"visible": true
-					},
-					{
-						"name": "subnetsApi",
-						"type": "Microsoft.Solutions.ArmApiControl",
-						"request": {
-							"method": "GET",
-							"path": "[concat(subscription().id, '/resourceGroups/', substring(steps('VirtualMachineConfig').virtualNetwork.id,add(indexOf(steps('VirtualMachineConfig').virtualNetwork.id,'resourceGroups/'), 15),sub(indexOf(steps('VirtualMachineConfig').virtualNetwork.id,'/providers/'), add(indexOf(steps('VirtualMachineConfig').virtualNetwork.id,'resourceGroups/'), 15))),'/providers/Microsoft.Network/virtualNetworks/',steps('VirtualMachineConfig').virtualNetwork.name,'/subnets?api-version=2021-08-01')]"
-						}
-					},
-					{
-						"name": "subnets",
-						"type": "Microsoft.Common.DropDown",
-						"label": "Subnets",
-						"filter": true,
-						"toolTip": "Choose the region for backup gateway deployment",
-						"constraints": {
-						"allowedValues": "[map(steps('VirtualMachineConfig').subnetsApi.value, (item) => parse(concat('{\"label\":\"', concat(item.name, ' (', item.properties.addressPrefix, ')'), '\",\"value\":{\"name\":\"',item.name,'\",\"addresspre\":\"',item.properties.addressPrefix, '\"}}')))]",
-						"required": true
-						},
-						"visible": true
-					}
+                    {
+                        "name": "virtualNetworksApi",
+                        "type": "Microsoft.Solutions.ArmApiControl",
+                        "request": {
+                            "method": "GET",
+                            "path": "[concat(subscription().id, '/providers/Microsoft.Network/virtualNetworks?api-version=2021-08-01')]"
+                        }
+                    },
+                    {
+                        "name": "virtualNetwork",
+                        "type": "Microsoft.Common.DropDown",
+                        "label": "virtualNetwork",
+                        "filter": true,
+                        "toolTip": "Virtual network",
+                        "constraints": {
+                            "allowedValues": "[map(filter(steps('VirtualMachineConfig').virtualNetworksApi.value, (item) => equals(item.location, basics('region'))), (item) => parse(concat('{\"label\":\"',item.name,'\",\"value\":{\"name\":\"',item.name,'\",\"id\":\"',item.id,'\",\"addressprefixes\":\"',item.properties.addressSpace.addressPrefixes, '\"}}')))]",
+                            "required": true
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "subnetsApi",
+                        "type": "Microsoft.Solutions.ArmApiControl",
+                        "request": {
+                            "method": "GET",
+                            "path": "[concat(subscription().id, '/resourceGroups/', substring(steps('VirtualMachineConfig').virtualNetwork.id,add(indexOf(steps('VirtualMachineConfig').virtualNetwork.id,'resourceGroups/'), 15),sub(indexOf(steps('VirtualMachineConfig').virtualNetwork.id,'/providers/'), add(indexOf(steps('VirtualMachineConfig').virtualNetwork.id,'resourceGroups/'), 15))),'/providers/Microsoft.Network/virtualNetworks/',steps('VirtualMachineConfig').virtualNetwork.name,'/subnets?api-version=2021-08-01')]"
+                        }
+                    },
+                    {
+                        "name": "subnets",
+                        "type": "Microsoft.Common.DropDown",
+                        "label": "Subnets",
+                        "filter": true,
+                        "toolTip": "Choose the region for backup gateway deployment",
+                        "constraints": {
+                            "allowedValues": "[map(steps('VirtualMachineConfig').subnetsApi.value, (item) => parse(concat('{\"label\":\"', concat(item.name, ' (', item.properties.addressPrefix, ')'), '\",\"value\":{\"name\":\"',item.name,'\",\"addresspre\":\"',item.properties.addressPrefix, '\"}}')))]",
+                            "required": true
+                        },
+                        "visible": true
+                    }
                 ]
             },
             {
