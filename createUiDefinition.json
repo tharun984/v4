@@ -9,7 +9,7 @@
                 "location": {
 		    "label": "Resource group region",
                     "toolTip": "Resource group region",
-		    "visible": true
+		    "visible": false
                 }
             }
         },
