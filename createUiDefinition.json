@@ -6,6 +6,8 @@
         "config": {
             "basics": {
                 "description": "Metallic backup gateway wizard",
+		"subscription": {},
+		"resourceGroup": {},
                 "location": {
 		    "label": "Resource group region",
                     "toolTip": "Resource group region",
